@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  />
+
+  <meta name="theme-color" content="#0D0D12" />
+
+  <meta
+    name="description"
+    content="Vynx — Connect, create and discover."
+  />
+
+  <title>Vynx</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- APP -->
+  <div id="app">
+
+    <!-- ============================= -->
+    <!-- AUTH SCREEN -->
+    <!-- ============================= -->
+
+    <section id="authScreen" class="auth-screen hidden">
+
+      <div class="auth-background">
+        <div class="orb orb-one"></div>
+        <div class="orb orb-two"></div>
+        <div class="orb orb-three"></div>
+      </div>
+
+      <div class="auth-card">
+
+        <div class="brand-large">
+          <div class="brand-mark">V</div>
+          <span>Vynx</span>
+        </div>
+
+        <p class="auth-subtitle">
+          Connect. Create. Discover.
+        </p>
+
+        <div id="loginForm">
+
+          <label>Email</label>
+          <input
+            id="loginEmail"
+            type="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+          >
+
+          <label>Password</label>
+
+          <div class="password-wrap">
+            <input
+              id="loginPassword"
+              type="password"
+              placeholder="Your password"
+              autocomplete="current-password"
+            >
+
+            <button
+              class="password-toggle"
+              onclick="togglePassword('loginPassword')"
+              type="button"
+            >👁</button>
+          </div>
+
+          <button
+            class="primary-btn full"
+            onclick="login()"
+          >
+            Sign in
+          </button>
+
+          <button
+            class="google-btn"
+            onclick="demoLogin()"
+          >
+            <span>G</span>
+            Continue with Google
+          </button>
+
+          <div class="auth-divider">
+            <span>or</span>
+          </div>
+
+          <button
+            class="text-btn"
+            onclick="showRegister()"
+          >
+            Create a new account
+          </button>
+
+        </div>
+
+        <div id="registerForm" class="hidden">
+
+          <label>Username</label>
+          <input
+            id="registerUsername"
+            type="text"
+            placeholder="@username"
+          >
+
+          <label>Email</label>
+          <input
+            id="registerEmail"
+            type="email"
+            placeholder="you@example.com"
+          >
+
+          <label>Password</label>
+          <input
+            id="registerPassword"
+            type="password"
+            placeholder="Create a password"
+          >
+
+          <button
+            class="primary-btn full"
+            onclick="register()"
+          >
+            Create account
+          </button>
+
+          <button
+            class="text-btn"
+            onclick="showLogin()"
+          >
+            Already have an account?
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- MAIN APP -->
+    <!-- ============================= -->
+
+    <div id="mainApp" class="app-shell hidden">
+
+      <!-- DESKTOP SIDEBAR -->
+
+      <aside class="sidebar">
+
+        <div class="sidebar-top">
+
+          <div class="brand">
+            <div class="brand-mark small">V</div>
+            <span>Vynx</span>
+          </div>
+
+          <nav>
+
+            <button
+              class="nav-item active"
+              data-page="home"
+              onclick="navigate('home')"
+            >
+              <span class="nav-icon">⌂</span>
+              <span>Home</span>
+            </button>
+
+            <button
+              class="nav-item"
+              data-page="explore"
+              onclick="navigate('explore')"
+            >
+              <span class="nav-icon">⌕</span>
+              <span>Explore</span>
+            </button>
+
+            <button
+              class="nav-item"
+              data-page="notifications"
+              onclick="navigate('notifications')"
+            >
+              <span class="nav-icon">♡</span>
+              <span>Notifications</span>
+              <span class="notification-dot"></span>
+            </button>
+
+            <button
+              class="nav-item"
+              data-page="messages"
+              onclick="navigate('messages')"
+            >
+              <span class="nav-icon">✉</span>
+              <span>Messages</span>
+            </button>
+
+            <button
+              class="nav-item"
+              data-page="profile"
+              onclick="navigate('profile')"
+            >
+              <span class="nav-icon">◎</span>
+              <span>Profile</span>
+            </button>
+
+          </nav>
+
+        </div>
+
+        <div class="sidebar-bottom">
+
+          <button
+            class="create-sidebar-btn"
+            onclick="openCreatePost()"
+          >
+            <span>＋</span>
+            Create
+          </button>
+
+          <button
+            class="nav-item"
+            onclick="navigate('settings')"
+          >
+            <span class="nav-icon">⚙</span>
+            <span>Settings</span>
+          </button>
+
+          <button
+            class="account-mini"
+            onclick="navigate('profile')"
+          >
+
+            <img
+              id="sidebarAvatar"
+              src="https://i.pravatar.cc/100?img=12"
+            >
+
+            <div>
+              <strong id="sidebarUsername">@danny</strong>
+              <small>View profile</small>
+            </div>
+
+            <span>•••</span>
+
+          </button>
+
+        </div>
+
+      </aside>
+
+
+      <!-- MAIN CONTENT -->
+
+      <main class="main-content">
+
+        <!-- MOBILE HEADER -->
+
+        <header class="mobile-header">
+
+          <div class="brand">
+            <div class="brand-mark small">V</div>
+            <span>Vynx</span>
+          </div>
+
+          <div class="mobile-header-actions">
+            <button onclick="navigate('notifications')">♡</button>
+            <button onclick="navigate('messages')">✉</button>
+          </div>
+
+        </header>
+
+
+        <!-- ============================= -->
+        <!-- HOME -->
+        <!-- ============================= -->
+
+        <section
+          id="page-home"
+          class="page active-page"
+        >
+
+          <div class="page-header">
+
+            <div>
+              <h1>For you</h1>
+              <p>What's happening on Vynx</p>
+            </div>
+
+            <button
+              class="icon-button"
+              onclick="refreshFeed()"
+            >
+              ↻
+            </button>
+
+          </div>
+
+          <!-- STORIES -->
+
+          <div class="stories" id="stories"></div>
+
+          <!-- CREATE BOX -->
+
+          <div class="quick-create">
+
+            <img
+              id="quickAvatar"
+              src="https://i.pravatar.cc/100?img=12"
+            >
+
+            <button onclick="openCreatePost()">
+              What's on your mind?
+            </button>
+
+            <button
+              class="quick-media"
+              onclick="openCreatePost()"
+            >
+              ▣
+            </button>
+
+          </div>
+
+          <!-- FEED -->
+
+          <div id="feed" class="feed"></div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- EXPLORE -->
+        <!-- ============================= -->
+
+        <section
+          id="page-explore"
+          class="page"
+        >
+
+          <div class="page-header">
+
+            <div>
+              <h1>Explore</h1>
+              <p>Discover something new</p>
+            </div>
+
+          </div>
+
+          <div class="search-box">
+
+            <span>⌕</span>
+
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Search people, posts and topics..."
+              oninput="performSearch()"
+            >
+
+          </div>
+
+          <div class="explore-tabs">
+
+            <button
+              class="active"
+              onclick="exploreTab('trending', this)"
+            >
+              Trending
+            </button>
+
+            <button
+              onclick="exploreTab('people', this)"
+            >
+              People
+            </button>
+
+            <button
+              onclick="exploreTab('videos', this)"
+            >
+              Videos
+            </button>
+
+          </div>
+
+          <div
+            id="exploreGrid"
+            class="explore-grid"
+          ></div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- NOTIFICATIONS -->
+        <!-- ============================= -->
+
+        <section
+          id="page-notifications"
+          class="page"
+        >
+
+          <div class="page-header">
+
+            <div>
+              <h1>Notifications</h1>
+              <p>Stay updated</p>
+            </div>
+
+            <button
+              class="small-action"
+              onclick="markNotificationsRead()"
+            >
+              Mark all read
+            </button>
+
+          </div>
+
+          <div
+            id="notificationsList"
+            class="notifications-list"
+          ></div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- MESSAGES -->
+        <!-- ============================= -->
+
+        <section
+          id="page-messages"
+          class="page"
+        >
+
+          <div class="page-header">
+
+            <div>
+              <h1>Messages</h1>
+              <p>Talk to your people</p>
+            </div>
+
+            <button class="icon-button">＋</button>
+
+          </div>
+
+          <div class="search-box">
+
+            <span>⌕</span>
+
+            <input
+              placeholder="Search conversations..."
+            >
+
+          </div>
+
+          <div
+            id="messagesList"
+            class="messages-list"
+          ></div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- PROFILE -->
+        <!-- ============================= -->
+
+        <section
+          id="page-profile"
+          class="page"
+        >
+
+          <div id="profileContent"></div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- SETTINGS -->
+        <!-- ============================= -->
+
+        <section
+          id="page-settings"
+          class="page"
+        >
+
+          <div class="page-header">
+
+            <div>
+              <h1>Settings</h1>
+              <p>Manage your Vynx account</p>
+            </div>
+
+          </div>
+
+          <div class="settings-card">
+
+            <div class="settings-section">
+
+              <h3>Account</h3>
+
+              <button class="setting-row">
+                <span>
+                  <b>Personal information</b>
+                  <small>Manage your name, email and profile</small>
+                </span>
+                <strong>›</strong>
+              </button>
+
+              <button class="setting-row">
+                <span>
+                  <b>Password and security</b>
+                  <small>Protect your account</small>
+                </span>
+                <strong>›</strong>
+              </button>
+
+            </div>
+
+
+            <div class="settings-section">
+
+              <h3>Privacy</h3>
+
+              <div class="setting-row">
+
+                <span>
+                  <b>Private account</b>
+                  <small>Only approved people can follow you</small>
+                </span>
+
+                <label class="switch">
+                  <input
+                    id="privateAccount"
+                    type="checkbox"
+                    onchange="saveSetting('private', this.checked)"
+                  >
+                  <span></span>
+                </label>
+
+              </div>
+
+              <div class="setting-row">
+
+                <span>
+                  <b>Notifications</b>
+                  <small>Receive activity notifications</small>
+                </span>
+
+                <label class="switch">
+                  <input
+                    id="notificationsSetting"
+                    type="checkbox"
+                    checked
+                  >
+                  <span></span>
+                </label>
+
+              </div>
+
+            </div>
+
+
+            <div class="settings-section">
+
+              <h3>Appearance</h3>
+
+              <div class="setting-row">
+
+                <span>
+                  <b>Dark mode</b>
+                  <small>Use the Vynx dark interface</small>
+                </span>
+
+                <label class="switch">
+                  <input
+                    type="checkbox"
+                    checked
+                    onchange="toggleTheme(this.checked)"
+                  >
+                  <span></span>
+                </label>
+
+              </div>
+
+            </div>
+
+
+            <div class="settings-section">
+
+              <h3>Support</h3>
+
+              <button class="setting-row">
+                <span>
+                  <b>Help centre</b>
+                  <small>Get help with Vynx</small>
+                </span>
+                <strong>›</strong>
+              </button>
+
+              <button class="setting-row">
+                <span>
+                  <b>About Vynx</b>
+                  <small>Version 1.0.0</small>
+                </span>
+                <strong>›</strong>
+              </button>
+
+            </div>
+
+            <button
+              class="logout-btn"
+              onclick="logout()"
+            >
+              Log out
+            </button>
+
+          </div>
+
+        </section>
+
+      </main>
+
+
+      <!-- RIGHT SIDEBAR -->
+
+      <aside class="rightbar">
+
+        <div class="right-card">
+
+          <h3>Suggested for you</h3>
+
+          <div id="suggestions"></div>
+
+          <button class="see-all">
+            See all
+          </button>
+
+        </div>
+
+
+        <div class="right-card trending-card">
+
+          <div class="card-heading">
+            <h3>Trending</h3>
+            <span>•••</span>
+          </div>
+
+          <div class="trend">
+            <small>Trending</small>
+            <strong>#Vynx</strong>
+            <span>12.4K posts</span>
+          </div>
+
+          <div class="trend">
+            <small>Technology</small>
+            <strong>#WebDevelopment</strong>
+            <span>8.7K posts</span>
+          </div>
+
+          <div class="trend">
+            <small>Gaming</small>
+            <strong>#FreeFire</strong>
+            <span>5.9K posts</span>
+          </div>
+
+        </div>
+
+        <footer>
+          About · Help · Privacy · Terms ·
+          <br>
+          © 2026 Vynx
+        </footer>
+
+      </aside>
+
+    </div>
+
+
+    <!-- MOBILE NAV -->
+
+    <nav class="mobile-nav">
+
+      <button
+        class="active"
+        data-page="home"
+        onclick="navigate('home')"
+      >
+        <span>⌂</span>
+        <small>Home</small>
+      </button>
+
+      <button
+        data-page="explore"
+        onclick="navigate('explore')"
+      >
+        <span>⌕</span>
+        <small>Explore</small>
+      </button>
+
+      <button
+        class="mobile-create"
+        onclick="openCreatePost()"
+      >
+        <span>＋</span>
+      </button>
+
+      <button
+        data-page="messages"
+        onclick="navigate('messages')"
+      >
+        <span>✉</span>
+        <small>Messages</small>
+      </button>
+
+      <button
+        data-page="profile"
+        onclick="navigate('profile')"
+      >
+        <span>◎</span>
+        <small>Profile</small>
+      </button>
+
+    </nav>
+
+
+    <!-- ============================= -->
+    <!-- CREATE POST MODAL -->
+    <!-- ============================= -->
+
+    <div
+      id="createModal"
+      class="modal hidden"
+    >
+
+      <div
+        class="modal-overlay"
+        onclick="closeCreatePost()"
+      ></div>
+
+      <div class="modal-card create-modal">
+
+        <div class="modal-header">
+
+          <h2>Create post</h2>
+
+          <button
+            onclick="closeCreatePost()"
+          >
+            ×
+          </button>
+
+        </div>
+
+        <div class="create-user">
+
+          <img
+            id="createAvatar"
+            src="https://i.pravatar.cc/100?img=12"
+          >
+
+          <div>
+            <strong id="createUsername">@danny</strong>
+            <small>Public</small>
+          </div>
+
+        </div>
+
+        <textarea
+          id="postText"
+          placeholder="What's on your mind?"
+        ></textarea>
+
+        <div
+          id="mediaPreview"
+          class="media-preview"
+        ></div>
+
+        <div class="create-tools">
+
+          <label class="tool-button">
+            📷
+            <span>Photo</span>
+            <input
+              type="file"
+              accept="image/*,video/*"
+              onchange="previewMedia(event)"
+              hidden
+            >
+          </label>
+
+          <button
+            class="tool-button"
+            onclick="addEmoji('❤️')"
+          >
+            😊
+            <span>Feeling</span>
+          </button>
+
+          <button
+            class="tool-button"
+            onclick="addEmoji('🔥')"
+          >
+            🔥
+            <span>Activity</span>
+          </button>
+
+        </div>
+
+        <button
+          class="primary-btn full"
+          onclick="createPost()"
+        >
+          Post
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- POST DETAIL MODAL -->
+    <!-- ============================= -->
+
+    <div
+      id="postModal"
+      class="modal hidden"
+    >
+
+      <div
+        class="modal-overlay"
+        onclick="closePostModal()"
+      ></div>
+
+      <div
+        id="postModalContent"
+        class="modal-card post-detail"
+      ></div>
+
+    </div>
+
+
+    <!-- TOAST -->
+
+    <div
+      id="toast"
+      class="toast"
+    ></div>
+
+  </div>
+
+  <script src="main.js"></script>
+
+</body>
+</html>
